@@ -18,7 +18,6 @@ import java.lang.reflect.Field;
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView mNavigationView;
     private ViewPager mViewPager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
