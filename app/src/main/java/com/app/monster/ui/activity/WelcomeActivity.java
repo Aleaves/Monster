@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.app.monster.MainActivity;
 import com.app.monster.R;
+import com.app.monster.utils.LaunchUtils;
 import com.github.paolorotolo.appintro.AppIntro2;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 import com.github.paolorotolo.appintro.model.SliderPage;
@@ -22,6 +25,7 @@ public class WelcomeActivity extends AppIntro2{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
         SliderPage sliderPage1 = new SliderPage();
         sliderPage1.setDescription("青山隐隐水迢迢，秋尽江南草未凋。\n\n" +
@@ -69,13 +73,15 @@ public class WelcomeActivity extends AppIntro2{
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
-        Log.i("=======","skip");
+        LaunchUtils.launch(this, MainActivity.class);
+        finish();
     }
 
     @Override
     public void onDonePressed(Fragment currentFragment) {
         super.onDonePressed(currentFragment);
-        Log.i("=======","onDonePressed");
+        LaunchUtils.launch(this, MainActivity.class);
+        finish();
     }
 
 }
