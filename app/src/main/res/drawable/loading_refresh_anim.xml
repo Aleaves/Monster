@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list android:oneshot="false"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:duration="100" android:drawable="@mipmap/aee" />
+    <item android:duration="100" android:drawable="@mipmap/aef" />
+    <item android:duration="100" android:drawable="@mipmap/aeg" />
+    <item android:duration="100" android:drawable="@mipmap/aeh" />
+    <item android:duration="100" android:drawable="@mipmap/aei" />
+</animation-list>

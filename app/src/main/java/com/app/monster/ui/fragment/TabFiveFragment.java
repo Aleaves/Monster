@@ -11,15 +11,15 @@ import android.view.ViewGroup;
 import com.app.monster.R;
 
 /**
- * Created by liulb1 on 2018/7/27.
+ * Created by liulb1 on 2018/7/30.
  */
 
-public class TabThreeFragment extends Fragment{
+public class TabFiveFragment extends Fragment{
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tab_three,container,false);
+        View view = inflater.inflate(R.layout.fragment_tab_five,container,false);
         return view;
     }
 
