@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.view.Window;
 import com.app.monster.ui.activity.BaseActivity;
 import com.app.monster.ui.fragment.HomeFragment;
@@ -35,11 +36,6 @@ public class MainActivity extends BaseActivity {
     BottomNavigationView mNavigationView;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
-
-    @Override
-    public void beforeSetContentView() {
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-    }
 
     @Override
     public int getLayoutId() {
@@ -160,6 +156,11 @@ public class MainActivity extends BaseActivity {
         @Override
         public int getCount() {
             return pages.size();
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            //super.destroyItem(container, position, object);
         }
     }
 }

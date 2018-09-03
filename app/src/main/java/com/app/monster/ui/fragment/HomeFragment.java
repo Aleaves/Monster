@@ -1,16 +1,14 @@
 package com.app.monster.ui.fragment;
+
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.TextView;
+
 import com.app.monster.R;
-import com.app.monster.view.LoadingDailog;
-import com.avos.avoscloud.AVException;
+import com.app.monster.net.NetWorkProcessor;
+import com.app.monster.ui.adapter.HomePageAdapter;
 import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.FindCallback;
-import com.avos.avoscloud.SaveCallback;
-
 import java.util.List;
-
 import butterknife.BindView;
 
 /**
@@ -19,8 +17,10 @@ import butterknife.BindView;
 
 public class HomeFragment extends BaseFragment{
 
-    @BindView(R.id.tv)
-    TextView tv;
+    @BindView(R.id.recyclerView)
+    RecyclerView mRecyclerView;
+
+    private HomePageAdapter mAdapter;
 
     @Override
     public int getLayoutId() {
@@ -29,23 +29,15 @@ public class HomeFragment extends BaseFragment{
 
     @Override
     public void initViews() {
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
+        mAdapter = new HomePageAdapter(mActivity,null);
+        mRecyclerView.setAdapter(mAdapter);
+        NetWorkProcessor.getInstance().getHomeNews(mActivity,this);
+    }
 
-        LoadingDailog.Builder loadBuilder=new LoadingDailog.Builder(getActivity())
-                .setMessage("加载中...")
-                .setCancelable(true)
-                .setCancelOutside(false);
-        LoadingDailog dialog=loadBuilder.create();
-        dialog.show();
-        AVQuery<AVObject> query = new AVQuery<>("Memory");
-        query.limit(10);
-        query.findInBackground(new FindCallback<AVObject>() {
-            @Override
-            public void done(List<AVObject> list, AVException e) {
-                for (int i=0;i<list.size();i++){
-                    Log.i("=======1",list.get(i).toString());
-                }
-            }
-        });
+    @Override
+    public void onNetSuccess(String tabName, List<AVObject> list) {
+        mAdapter.refreshData(list);
     }
 
 }
