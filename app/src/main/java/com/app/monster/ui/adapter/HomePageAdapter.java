@@ -1,30 +1,22 @@
 package com.app.monster.ui.adapter;
+
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.DragAndDropPermissions;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.app.monster.R;
-import com.app.monster.utils.GlideApp;
 import com.app.monster.utils.GlideUtils;
 import com.avos.avoscloud.AVObject;
-import com.bumptech.glide.load.resource.bitmap.DrawableTransformation;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.request.RequestOptions;
+
 import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import jp.wasabeef.glide.transformations.ColorFilterTransformation;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
-import jp.wasabeef.glide.transformations.GrayscaleTransformation;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
-import jp.wasabeef.glide.transformations.gpu.SketchFilterTransformation;
 
 /**
  * Created by liulb1 on 2018/8/8.
