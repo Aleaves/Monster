@@ -1,88 +1,43 @@
 package com.app.monster.ui.adapter;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.support.annotation.Nullable;
 
 import com.app.monster.R;
-import com.app.monster.utils.GlideUtils;
+import com.app.monster.ui.adapter.viewholder.MyViewHolder;
 import com.avos.avoscloud.AVObject;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import org.json.JSONException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by liulb1 on 2018/8/8.
  */
 
-public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHolder>{
+public class HomePageAdapter extends BaseQuickAdapter<AVObject,MyViewHolder> {
 
-    private Context mContext;
-    private List<AVObject> lists;
-
-    public HomePageAdapter(Context mContext,List<AVObject> lists){
-        this.mContext = mContext;
-        if(null==lists){
-            this.lists = new ArrayList<>();
-        }else {
-            this.lists = lists;
-        }
+    public HomePageAdapter(int layoutResId, @Nullable List<AVObject> data) {
+        super(layoutResId, data);
     }
 
-    public void refreshData(List<AVObject> lists){
-        this.lists.clear();
-        this.lists.addAll(lists);
+    public void refreshData(List<AVObject> list){
+        this.mData = list;
         notifyDataSetChanged();
     }
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_home_news_item,parent,false);
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        AVObject avObject = lists.get(position);
-        holder.mTitle.setText(avObject.getString("article_title"));
-        holder.mAuthor.setText(avObject.getString("article_author"));
-        holder.mContent.setText(avObject.getString("article_content"));
-        holder.mTime.setText(avObject.getDate("createdAt").toString());
+    protected void convert(MyViewHolder helper, AVObject item) {
+        helper.setText(R.id.home_title_item_tv,item.getString("article_title"))
+                .setText(R.id.home_author_item_tv,item.getString("article_author"))
+                .setText(R.id.home_time_item_tv,item.getDate("createdAt").toString())
+                .setText(R.id.home_content_item_tv,item.getString("article_content"))
+                .addOnClickListener(R.id.news_item_ll);
         try {
-            String url = avObject.getJSONObject("article_image").getString("url");
-            GlideUtils.getInstance().displayImage(mContext,url,holder.mImage);
+            String url = item.getJSONObject("article_image").getString("url");
+            helper.setImageUrl(R.id.home_image_item_iv,mContext,url);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public int getItemCount() {
-        return lists.size();
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder{
-        TextView mTitle;
-        TextView mAuthor;
-        TextView mTime;
-        TextView mContent;
-        ImageView mImage;
-        public ViewHolder(View itemView) {
-            super(itemView);
-            mTitle = itemView.findViewById(R.id.home_title_item_tv);
-            mAuthor = itemView.findViewById(R.id.home_author_item_tv);
-            mTime = itemView.findViewById(R.id.home_time_item_tv);
-            mImage = itemView.findViewById(R.id.home_image_item_iv);
-            mContent = itemView.findViewById(R.id.home_content_item_tv);
-        }
-    }
-
 }
