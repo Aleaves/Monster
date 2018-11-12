@@ -2,6 +2,9 @@ package com.app.monster.ui.activity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.webkit.WebChromeClient;
@@ -23,6 +26,8 @@ public class WebActivity extends BaseActivity{
     private WebView mWebview;
     @BindView(R.id.web_container_ll)
     LinearLayout mContainerLayout;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     @Override
     public int getLayoutId() {
@@ -33,6 +38,19 @@ public class WebActivity extends BaseActivity{
     public void initView() {
         Bundle bundle = getIntent().getExtras();
         String url = bundle.getString("url");
+        String title = bundle.getString("title");
+        mToolbar.setTitle("");
+        mToolbar.setSubtitle(title);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//左侧添加一个默认的返回图标
+        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onWebviewBack();
+            }
+        });
+
         mWebview = new WebView(this);
         mContainerLayout.addView(mWebview);
         WebSettings mWebSettings = mWebview.getSettings();
@@ -87,4 +105,13 @@ public class WebActivity extends BaseActivity{
         }
         super.onDestroy();
     }
+
+    private void onWebviewBack(){
+        if(mWebview.canGoBack()){
+            mWebview.goBack();
+        }else{
+            onBackPressed();
+        }
+    }
+
 }

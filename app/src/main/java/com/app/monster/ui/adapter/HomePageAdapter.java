@@ -9,6 +9,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import org.json.JSONException;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,7 +32,7 @@ public class HomePageAdapter extends BaseQuickAdapter<AVObject,MyViewHolder> {
     protected void convert(MyViewHolder helper, AVObject item) {
         helper.setText(R.id.home_title_item_tv,item.getString("article_title"))
                 .setText(R.id.home_author_item_tv,item.getString("article_author"))
-                .setText(R.id.home_time_item_tv,item.getDate("createdAt").toString())
+                .setText(R.id.home_time_item_tv,DateToString(item.getDate("createdAt")))
                 .setText(R.id.home_content_item_tv,item.getString("article_content"))
                 .addOnClickListener(R.id.news_item_ll);
         try {
@@ -39,5 +41,10 @@ public class HomePageAdapter extends BaseQuickAdapter<AVObject,MyViewHolder> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private String DateToString(Date date){
+        SimpleDateFormat format =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return format.format(date);
     }
 }

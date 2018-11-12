@@ -42,8 +42,10 @@ public class HomeFragment extends BaseFragment{
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 String url = mAdapter.getData().get(position).getString("article_url");
+                String title = mAdapter.getData().get(position).getString("article_title");
                 Bundle bundle = new Bundle();
                 bundle.putString("url",url);
+                bundle.putString("title",title);
                 LaunchUtils.launch(getActivity(), WebActivity.class,bundle);
             }
         });

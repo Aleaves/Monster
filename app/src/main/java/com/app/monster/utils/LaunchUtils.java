@@ -15,21 +15,13 @@ import com.app.monster.ui.activity.WelcomeActivity;
 public class LaunchUtils {
 
     public static void launch(Activity activity,Class clazz){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity.startActivity(new Intent(activity,clazz), ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
-        }else{
-            activity.startActivity(new Intent(activity,clazz));
-        }
+        activity.startActivity(new Intent(activity,clazz));
     }
 
     public static void launch(Activity activity, Class clazz, Bundle bundle){
         Intent intent = new Intent(activity,clazz);
         intent.putExtras(bundle);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
-        }else{
-            activity.startActivity(intent);
-        }
+        activity.startActivity(intent);
     }
 
 }
