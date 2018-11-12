@@ -41,6 +41,11 @@
             android:name=".ui.activity.WebActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.activity.DataBindingTestActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
 
     </application>
 
