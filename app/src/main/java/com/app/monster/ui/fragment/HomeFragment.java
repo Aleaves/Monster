@@ -12,11 +12,14 @@ import com.app.monster.net.NetWorkProcessor;
 import com.app.monster.ui.activity.WebActivity;
 import com.app.monster.ui.adapter.HomePageAdapter;
 import com.app.monster.utils.LaunchUtils;
+import com.app.monster.view.refresh.PtrUmsFrameLayout;
 import com.avos.avoscloud.AVObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.List;
 import butterknife.BindView;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
  * Created by liulb1 on 2018/7/27.
@@ -26,6 +29,10 @@ public class HomeFragment extends BaseFragment{
 
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
+    @BindView(R.id.fragment_rotate_header_with_text_view_frame)
+    PtrUmsFrameLayout ptrFrame;
+
+    private boolean isRefresh = false;
 
     private HomePageAdapter mAdapter;
 
@@ -50,7 +57,34 @@ public class HomeFragment extends BaseFragment{
             }
         });
         mRecyclerView.setAdapter(mAdapter);
+        getData();
+        ptrFrame.setLastUpdateTimeRelateObject(this);
+        ptrFrame.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                isRefresh = true;
+                getData();
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+            }
+        });
+    }
+
+    /**
+     * 加载数据
+     */
+    private void getData(){
         NetWorkProcessor.getInstance().getHomeNews(mActivity,this);
+    }
+
+    @Override
+    public void onNetStart() {
+        if(!isRefresh) {
+            super.onNetStart();
+        }
     }
 
     @Override
@@ -58,4 +92,12 @@ public class HomeFragment extends BaseFragment{
         mAdapter.refreshData(list);
     }
 
+    @Override
+    public void onNetComplete() {
+        if(!isRefresh) {
+            super.onNetComplete();
+        }else{
+            ptrFrame.refreshComplete();
+        }
+    }
 }

@@ -3,6 +3,7 @@ package com.app.monster.utils;
 import android.content.Context;
 import android.widget.ImageView;
 
+import com.app.monster.R;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import jp.wasabeef.glide.transformations.gpu.SketchFilterTransformation;
@@ -32,6 +33,7 @@ public class GlideUtils {
         GlideApp.with(context)
                 .load(url)
                 .transition(DrawableTransitionOptions.withCrossFade())
+                .placeholder(R.color.app_bg)
                 .into(imageView);
     }
 

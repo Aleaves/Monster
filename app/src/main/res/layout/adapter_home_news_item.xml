@@ -44,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:textColor="#7f7f7f"
+            android:lineSpacingExtra="5dp"
             android:textSize="14sp"
             tools:text="时间" />
 

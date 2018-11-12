@@ -49,4 +49,6 @@ dependencies {
 
     //万能适配器
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    //下拉刷新
+    compile 'in.srain.cube:ultra-ptr:1.0.11'
 }
